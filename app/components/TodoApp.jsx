@@ -54,6 +54,7 @@ var TodoApp = React.createClass({
     });
   },
 
+  //update completed status for given todo
   handleToggle: function (id) {
     var updatedTodos = this.state.todos.map( (todo) => {
       if(todo.id === id) {
