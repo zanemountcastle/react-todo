@@ -1,10 +1,11 @@
 var React = require('react');
 var {connect} = require('react-redux');
 import Todo from 'Todo';
+import TodoAPI from 'TodoAPI';
 
 export var TodoList = React.createClass({
   render: function(){
-    var {todos} = this.props;
+    var {todos, showCompleted, searchText} = this.props;
     var renderTodos = () => {
       if (todos.length === 0) {
         return (
@@ -12,7 +13,7 @@ export var TodoList = React.createClass({
         );
       }
 
-      return todos.map((todo) => { //calls function for every element in array
+      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => { //calls function for every element in array
         return(
           //pass every item on todo down as a prop
           <Todo key={todo.id} {...todo} /> //give each element a unique key prop
@@ -30,8 +31,6 @@ export var TodoList = React.createClass({
 
 export default connect(
   (state) => {
-    return {
-      todos: state.todos
-    };
+    return state; //access to everything on state tree
   }
 )(TodoList);
